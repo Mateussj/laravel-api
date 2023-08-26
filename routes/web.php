@@ -20,4 +20,4 @@ Route::get('/', function () {
 });
 
 Route::get('/matriz', [MatrizController::class, 'get']);
-Route::resource('users', UsusarioController::class);
+Route::resource('crud/users', UsusarioController::class);
