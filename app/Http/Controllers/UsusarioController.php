@@ -11,12 +11,11 @@ class UsusarioController extends Controller
     public function index()
     {
         try {
-            $users = User::all();
+            $users = User::paginate(20);
             return response()->json($users, 200);
         } catch (Exception $e) {
             return response()->json(['Error' => $e->getMessage()], 500);
         }
-        
     }
 
     public function show($id)
