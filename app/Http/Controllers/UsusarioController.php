@@ -19,36 +19,52 @@ class UsusarioController extends Controller
         
     }
 
+    public function show($id)
+    {
+        try {
+            $users = User::find($id);
+            return response()->json($users, 200);
+        } catch (Exception $e) {
+            return response()->json("Error: server error" . $e->getMessage(), 500);
+        }
+        
+    }
+
     public function store(Request $request)
     {
         try {       
             $this->validate($request, [
                 'nome' => 'required',
-                'email' => 'required|email|unique:users',
+                'sobrenome'=> '',
+                'telefone'=> '',
+                'email'=> '',
+                'password'=> 'required'
             ]);
 
             $user = User::create($request->all());
             return response()->json($user, 200);
         } catch (Exception $e) {
-            return response()->json("Error: server error" . $e->getMessage(), 500);
+            return response()->json(['Error' =>"server error" . $e->getMessage()], 500);
         }
     }
 
-    public function update(Request $request, $userId)
+    public function update(Request $request, User $user)
     {
+
         try {
-            $user = User::find($userId);
-
             $this->validate($request, [
-                'name' => 'required',
-                'email' => 'required|email|unique:users,email,' . $user->id,
+                'nome' => '',
+                'sobrenome'=> '',
+                'telefone'=> '',
+                'email'=> '',
+                'password'=> '',
             ]);
-
+            
             if($user->update($request->all())){
-                return response()->json('Usuário atualizado com sucesso.', 200);
+                return response()->json(['message' => 'Usuário atualizado com sucesso.', 'data' => $user], 200);
             }
         } catch (Exception $e) {
-            return response()->json("Error: server error" . $e->getMessage(), 500);
+            return response()->json(['Error' =>"server error" . $e->getMessage()], 500);
         }        
     }
 
@@ -58,9 +74,9 @@ class UsusarioController extends Controller
             $user = User::find($userId);
             if($user) {
                 $user->delete();
-                return response()->json('Usuário excluído com sucesso.', 200);
+                return response()->json(['message' => 'Usuário excluído com sucesso.'], 200);
             }
-            return response()->json('Usuário não encontrado.', 404);
+            return response()->json(['message' => 'Usuário não encontrado.'], 404);
         } catch (Exception $e) {
             return response()->json("Error: server error" . $e->getMessage(), 500);
         }
