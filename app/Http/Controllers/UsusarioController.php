@@ -14,7 +14,7 @@ class UsusarioController extends Controller
             $users = User::all();
             return response()->json($users, 200);
         } catch (Exception $e) {
-            return response()->json("Error: server error" . $e->getMessage(), 500);
+            return response()->json(['Error' => $e->getMessage()], 500);
         }
         
     }
@@ -25,7 +25,7 @@ class UsusarioController extends Controller
             $users = User::find($id);
             return response()->json($users, 200);
         } catch (Exception $e) {
-            return response()->json("Error: server error" . $e->getMessage(), 500);
+            return response()->json(['Error' => $e->getMessage()], 500);
         }
         
     }
@@ -33,6 +33,7 @@ class UsusarioController extends Controller
     public function store(Request $request)
     {
         try {       
+            
             $this->validate($request, [
                 'nome' => 'required',
                 'sobrenome'=> '',
@@ -44,7 +45,7 @@ class UsusarioController extends Controller
             $user = User::create($request->all());
             return response()->json($user, 200);
         } catch (Exception $e) {
-            return response()->json(['Error' =>"server error" . $e->getMessage()], 500);
+            return response()->json(['Error' => $e->getMessage()], 500);
         }
     }
 
@@ -64,7 +65,7 @@ class UsusarioController extends Controller
                 return response()->json(['message' => 'Usuário atualizado com sucesso.', 'data' => $user], 200);
             }
         } catch (Exception $e) {
-            return response()->json(['Error' =>"server error" . $e->getMessage()], 500);
+            return response()->json(['Error' => $e->getMessage()], 500);
         }        
     }
 
@@ -78,7 +79,7 @@ class UsusarioController extends Controller
             }
             return response()->json(['message' => 'Usuário não encontrado.'], 404);
         } catch (Exception $e) {
-            return response()->json("Error: server error" . $e->getMessage(), 500);
+            return response()->json(['Error' => $e->getMessage()], 500);
         }
     }
 }
