@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services;
+namespace Tests\Unit\Models;
 
 use PHPUnit\Framework\TestCase;
 use App\Models\User;
@@ -26,6 +26,15 @@ class UserTest extends TestCase
          ];
         
           $this->assertEquals($colunasNecessarias, $user->getFillable());
+     }
+
+     public function testChecarSePasswordEstaOculto(){
+        $user = new User();
+        $colunasOcultas = [
+              0 => "password",
+        ];
+       
+         $this->assertEquals($colunasOcultas, $user->getHidden());
      }
 
 
