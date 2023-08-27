@@ -1,8 +1,5 @@
 <?php
 
-use App\Http\Controllers\MatrizController;
-use App\Http\Controllers\UsusarioController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,14 +17,3 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/matriz', [MatrizController::class, 'get']);
-Route::resource('crud/users', UsusarioController::class);
-
-Route::get('/fake', function () {
-    Artisan::call('db:seed', [
-        '--class' => 'UserSeeder',
-        '--force' => true,
-    ]);
-
-    return 'Seeder executado!';
-});
