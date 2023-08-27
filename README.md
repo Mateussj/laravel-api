@@ -73,3 +73,9 @@ GET - /api/matriz
 ```bash
 GET - /api/fake
 ```
+- Para que a rota anterior funcione corretamente temos que abrir um terminal a parte dentro da pasta da aplicação e deixa-lo executando o seguinte comando:
+```bash
+php artisan queue:work --timeout=10800
+```
+O comando em questão faz com que o laravel fique esperando algo ser colocado em fila de processamento e faz com que ele execute uma de cada vez melhorando a performance da aplicação. O argumento timeout foi utilizado pois na aplicação em questão
+trabalhamos com a criação de uma quantidade massiva de dados e isso pode demorar um pouco, então para que a aplicação não de tempo limite excedido na aplicação foi especificado 3 horas (10800 segundos) de duração maxima, mas não se preocupe, caso o laravel termine a tarefa antes ele não fica aguardando esse tempo para encerra-la.
