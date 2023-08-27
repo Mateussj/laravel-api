@@ -11,7 +11,7 @@ class UsusarioController extends Controller
     public function index()
     {
         try {
-            $users = User::paginate(20);
+            $users = User::paginate(5);
             return response()->json($users, 200);
         } catch (Exception $e) {
             return response()->json(['Error' => $e->getMessage()], 500);
