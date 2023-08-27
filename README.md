@@ -54,11 +54,11 @@ DB_PASSWORD_TESTE=
 
 - Crud de usuarios
 ```bash
-GET - /crud/users
-GET - /crud/users/{id}
-POST - /crud/users
-PUT - /crud/users/{id}
-DELETE - /crud/users/{id}
+GET - /api/crud/users
+GET - /api/crud/users/{id}
+POST - /api/crud/users
+PUT - /api/crud/users/{id}
+DELETE - /api/crud/users/{id}
 ```
 - Rota que retorna varias ou uma postagem apartir de uma api externa
 ```bash
@@ -67,9 +67,9 @@ GET - /api/posts/{id}
 ```
 - Rota que organiza um menu com uma função recursiva
 ```bash
-GET - /matriz
+GET - /api/matriz
 ```
 - Rota que aciona uma tarefa que cria um quantidade massiva de usuarios com dados fake
 ```bash
-GET - /fake
+GET - /api/fake
 ```
