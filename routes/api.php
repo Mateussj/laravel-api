@@ -3,8 +3,8 @@
 use App\Http\Controllers\ApiExternaController;
 use App\Http\Controllers\MatrizController;
 use App\Http\Controllers\UsusarioController;
+use App\Jobs\FakeUsersJob;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,10 +27,6 @@ Route::get('/posts/{id}', [ApiExternaController::class, 'findApiExterna']);
 Route::resource('/users', UsusarioController::class);
 Route::get('/matriz', [MatrizController::class, 'get']);
 Route::get('/fake', function () {
-    Artisan::call('db:seed', [
-        '--class' => 'UserSeeder',
-        '--force' => true,
-    ]);
-
-    return 'Seeder executado!';
+    FakeUsersJob::dispatch();
+    return response()->json(["message" => 'Tarefa colocar na fila de execução!'], 200);
 });

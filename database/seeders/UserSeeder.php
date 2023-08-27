@@ -14,6 +14,7 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+       
         $quantidadeNecessariaDeUsuarios = 100000;
         $quantidadeCriadaPorLote = 5000;
         $quantidadeDelotes = $quantidadeNecessariaDeUsuarios / $quantidadeCriadaPorLote;
