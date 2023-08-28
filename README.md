@@ -54,11 +54,11 @@ DB_PASSWORD_TESTE=
 
 - Crud de usuarios
 ```bash
-GET - /api/crud/users
-GET - /api/crud/users/{id}
-POST - /api/crud/users
-PUT - /api/crud/users/{id}
-DELETE - /api/crud/users/{id}
+GET - /api/users
+GET - /api/users/{id}
+POST - /api/users
+PUT - /api/users/{id}
+DELETE - /api/users/{id}
 ```
 - Rota que retorna varias ou uma postagem apartir de uma api externa
 ```bash
