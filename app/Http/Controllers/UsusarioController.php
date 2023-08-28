@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Exception;
+use Illuminate\Support\Facades\Hash;
 
 class UsusarioController extends Controller
 {
@@ -21,7 +22,7 @@ class UsusarioController extends Controller
     public function show($id)
     {
         try {
-            $users = User::find($id);
+            $users = User::find($id);            
             return response()->json($users, 200);
         } catch (Exception $e) {
             return response()->json(['Error' => $e->getMessage()], 500);
@@ -30,7 +31,7 @@ class UsusarioController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {        
         try {       
             
             $this->validate($request, [
@@ -41,7 +42,13 @@ class UsusarioController extends Controller
                 'password'=> 'required'
             ]);
 
-            $user = User::create($request->all());
+            $user = User::create([
+                'nome' => $request->nome,
+                'sobrenome'=> $request->sobrenome,
+                'telefone'=> $request->telefone,
+                'email'=> $request->email,
+                'password'=> Hash::make($request->password),
+            ]);
             return response()->json($user, 200);
         } catch (Exception $e) {
             return response()->json(['Error' => $e->getMessage()], 500);
