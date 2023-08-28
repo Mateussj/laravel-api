@@ -18,7 +18,7 @@ class UsusarioControllerTest extends TestCase
 
        public function testcheandoSeIndexRetornaOsUsuariosCorretamente(){
               User::factory()->count(5)->create();
-              $response = $this->get('/crud/users');
+              $response = $this->get('/api/users');
               $response->assertStatus(200);
               $response->assertJson(['data' => []]);
               $response->assertJsonCount(5, 'data');
@@ -52,7 +52,7 @@ class UsusarioControllerTest extends TestCase
        public function testChecandoSeShowRetornaUmUsuario(){
               $user = User::factory()->count(1)->create();
               
-              $response = $this->get("/crud/users/{$user[0]->id}");
+              $response = $this->get("/api/users/{$user[0]->id}");
               $response->assertStatus(200);
               $response->assertJsonStructure(
                      [
@@ -73,7 +73,7 @@ class UsusarioControllerTest extends TestCase
                      'telefone' => "988888555"
               ];
 
-              $response = $this->put("/crud/users/{$user[0]->id}", $new);
+              $response = $this->put("/api/users/{$user[0]->id}", $new);
               $response->assertStatus(200);
               $response->assertJson(
                      [
@@ -86,7 +86,7 @@ class UsusarioControllerTest extends TestCase
        public function testChecandoSeDeleteExcluiUmUsuario(){
               $user = User::factory()->count(1)->create();
 
-              $response = $this->delete("/crud/users/{$user[0]->id}");
+              $response = $this->delete("/api/users/{$user[0]->id}");
               $response->assertStatus(200);
               $response->assertJson(
                      [
