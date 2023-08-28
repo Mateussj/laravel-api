@@ -28,5 +28,5 @@ Route::resource('/users', UsusarioController::class);
 Route::get('/matriz', [MatrizController::class, 'get']);
 Route::get('/fake', function () {
     FakeUsersJob::dispatch();
-    return response()->json(["message" => 'Tarefa colocar na fila de execução!'], 200);
+    return response()->json(["message" => 'Tarefa colocada na fila de execução, você pode acompanhar a quantidade de usuarios criada pelo indicador abaixo!'], 200);
 });
