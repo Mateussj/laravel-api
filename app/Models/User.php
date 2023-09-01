@@ -22,7 +22,8 @@ class User extends Authenticatable
         'sobrenome',
         'telefone',
         'email',
-        'password'
+        'password',
+        'api_token'
     ];
 
     /**
@@ -31,6 +32,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password'
+        'password',
+        'api_token'
     ];
 }

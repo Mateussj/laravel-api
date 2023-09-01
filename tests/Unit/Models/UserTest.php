@@ -23,6 +23,7 @@ class UserTest extends TestCase
                2 => "telefone",
                3 => "email",
                4 => "password",
+               5 => "api_token"
          ];
         
           $this->assertEquals($colunasNecessarias, $user->getFillable());
@@ -32,6 +33,7 @@ class UserTest extends TestCase
         $user = new User();
         $colunasOcultas = [
               0 => "password",
+              1 => "api_token"
         ];
        
          $this->assertEquals($colunasOcultas, $user->getHidden());

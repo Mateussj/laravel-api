@@ -40,6 +40,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'expires' => 60, // Define o tempo de expiração em minutos
+        ],
     ],
 
     /*
