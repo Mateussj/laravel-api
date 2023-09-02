@@ -21,7 +21,7 @@ class UsusarioController extends Controller
     public function index()
     {
         try {
-            $users = $this->usuarioService->buscarTodosUsuarios();
+            $users = $this->usuarioService->findAll();
 
             if($users)
                 return response()->json($users, 200);
@@ -36,7 +36,7 @@ class UsusarioController extends Controller
     public function show($id)
     {
         try {
-            $user = $this->usuarioService->buscarUsuario($id);
+            $user = $this->usuarioService->find($id);
             
             if($user)
                 return response()->json($user, 200);
@@ -68,7 +68,7 @@ class UsusarioController extends Controller
                 return response()->json(['Error' => $validator->errors()], 400);
             }
 
-            $usuario = $this->usuarioService->criarUsuario($request->all());
+            $usuario = $this->usuarioService->create($request->all());
 
             if($usuario)
                 return response()->json($usuario, 201);
@@ -93,7 +93,7 @@ class UsusarioController extends Controller
                 return response()->json(['Error' => $validator->errors()], 400);
             }
 
-            $usuario = $this->usuarioService->atualizarUsuario($user ,$request->all());
+            $usuario = $this->usuarioService->update($user ,$request->all());
 
             if($usuario)
                 return response()->json(['Message' => 'Usuário atualizado com sucesso.', 'data' => $user], 200);
@@ -108,7 +108,7 @@ class UsusarioController extends Controller
     public function destroy($userId)
     {
         try {
-            $user = $this->usuarioService->excluirUsuario($userId);
+            $user = $this->usuarioService->delete($userId);
             if($user) {
                 return response()->json(['Message' => 'Usuário excluído com sucesso.'], 200);
             }

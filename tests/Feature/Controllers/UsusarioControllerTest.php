@@ -70,6 +70,7 @@ class UsusarioControllerTest extends TestCase
               $response = $this->withHeaders([
                      'Authorization' => 'Bearer ' . $this->token,
                      ])->get("/api/users/{$user->id}");
+              
               $response->assertStatus(200);
               $response->assertJsonStructure(
                      [
