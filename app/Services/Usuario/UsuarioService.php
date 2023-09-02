@@ -19,15 +19,13 @@ class UsuarioService {
      public function create($dados)
      {
           try {
-
                $user = [
                     'nome' => $dados['nome'],
-                    'sobrenome' => $dados['sobrenome'] ?? $dados['sobrenome'],
-                    'telefone' => $dados['telefone'] ?? $dados['telefone'],
+                    'sobrenome' => $dados['sobrenome'] ? $dados['sobrenome'] : null,
+                    'telefone' => $dados['telefone'] ? $dados['telefone'] : null,
                     'email' => $dados['email'],
                     'password' => Hash::make($dados['password'])
                ];
-
                return $this->usuarioRepository->create($user);
 
           } catch (Exception $e) {
