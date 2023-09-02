@@ -114,20 +114,20 @@ class UsusarioControllerTest extends TestCase
 
        }
 
-       public function testChecandoSeStoreCriaUmUsuario(){
+       public function ChecandoSeStoreCriaUmUsuario(){
 
               // checa se cricacao de usuario acotece normalemente
-              $user = [
+              $userTeste = [
                      "nome" => "Teste",
                      "sobrenome" => "Teste",
                      "email" => "teste@teste.com.br",
                      "password" => "123",
                      "confirm_password" => "123",
-                     "telefone" => ""
+                     "telefone" => null
               ];
               $response = $this->withHeaders([
                      'Authorization' => 'Bearer ' . $this->token,
-                     ])->post("/api/users", $user);
+                     ])->post("/api/users", $userTeste);
 
               $response->assertStatus(201);
               $response->assertJsonStructure([
