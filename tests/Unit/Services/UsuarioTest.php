@@ -5,6 +5,7 @@ namespace Tests\Unit\Services;
 use App\Models\User;
 use App\Repositories\Usuarios\UsuarioRepository;
 use App\Services\Usuario\UsuarioService;
+use Exception;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -13,14 +14,12 @@ class UsuarioTest extends TestCase
     
     use RefreshDatabase;
 
-    public function testCreateUser()
+    public function testChecandoSeCreateCriaUmUsuario()
     {
-        // Crie uma instância simulada do UserRepository usando o método "mock" do PHPUnit
         $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
         ->disableOriginalConstructor()
-        ->getMock(); 
+        ->getMock();
         
-        // Defina o comportamento esperado para o método "create" do UserRepository
         $usuarioRepository->expects($this->once())
             ->method('create')
             ->willReturn(new User([
@@ -31,10 +30,8 @@ class UsuarioTest extends TestCase
                 'telefone' => '9787877'
             ]));
 
-        // Crie uma instância do UserService e injete o UserRepository simulado
         $usuarioService = new UsuarioService($usuarioRepository);
 
-        // Chame o método createUser do usuarioService
         $user = $usuarioService->create([
             'nome' => 'TesteNome',
             'sobrenome' => 'TesteSobrenome',
@@ -49,5 +46,51 @@ class UsuarioTest extends TestCase
         $this->assertEquals('testeemail@example.com', $user->email);
         $this->assertEquals('password123', $user->password);
         $this->assertEquals('9787877', $user->telefone);
+    }
+
+    public function testChecandoSeCreateRetornaUmaExceptionCorretamenteSePasswordNaoForFornecido(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+        $this->expectException(Exception::class);
+        $this->expectException($usuarioService->create([
+            'nome' => 'TesteNome',
+            'sobrenome' => 'TesteSobrenome',
+            'email' => 'testeemail@example.com',
+            'telefone' => '9787877'
+        ]));  
+        
+    }
+
+    public function testChecandoSeCreateRetornaUmaExceptionCorretamenteSeNomeNaoForFornecido(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+        $this->expectException(Exception::class);
+        $this->expectException($usuarioService->create([
+            'sobrenome' => 'TesteSobrenome',
+            'email' => 'testeemail@example.com',
+            'password' => '123',
+            'telefone' => '9787877'
+        ]));   
+    }
+
+    public function testChecandoSeCreateRetornaUmaExceptionCorretamenteSeEmailNaoForFornecido(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+        $this->expectException(Exception::class);
+        $this->expectException($usuarioService->create([
+            'nome' => 'TesteNome',
+            'sobrenome' => 'TesteSobrenome',
+            'password' => '123',
+            'telefone' => '9787877'
+        ]));
     }
 }
