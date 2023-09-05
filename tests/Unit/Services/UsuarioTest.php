@@ -55,12 +55,12 @@ class UsuarioTest extends TestCase
 
         $usuarioService = new UsuarioService($usuarioRepository);
         $this->expectException(Exception::class);
-        $this->expectException($usuarioService->create([
+        $usuarioService->create([
             'nome' => 'TesteNome',
             'sobrenome' => 'TesteSobrenome',
             'email' => 'testeemail@example.com',
             'telefone' => '9787877'
-        ]));  
+        ]);  
         
     }
 
@@ -71,12 +71,12 @@ class UsuarioTest extends TestCase
 
         $usuarioService = new UsuarioService($usuarioRepository);
         $this->expectException(Exception::class);
-        $this->expectException($usuarioService->create([
+        $usuarioService->create([
             'sobrenome' => 'TesteSobrenome',
             'email' => 'testeemail@example.com',
             'password' => '123',
             'telefone' => '9787877'
-        ]));   
+        ]);   
     }
 
     public function testChecandoSeCreateRetornaUmaExceptionCorretamenteSeEmailNaoForFornecido(){
@@ -86,11 +86,11 @@ class UsuarioTest extends TestCase
 
         $usuarioService = new UsuarioService($usuarioRepository);
         $this->expectException(Exception::class);
-        $this->expectException($usuarioService->create([
+        $usuarioService->create([
             'nome' => 'TesteNome',
             'sobrenome' => 'TesteSobrenome',
             'password' => '123',
             'telefone' => '9787877'
-        ]));
+        ]);
     }
 }
