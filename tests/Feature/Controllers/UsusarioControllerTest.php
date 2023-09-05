@@ -184,8 +184,6 @@ class UsusarioControllerTest extends TestCase
               $response->assertJsonStructure([
                      "Error" => ["email", "password", "confirm_password"]
               ]);
-              
-              //dd($response);
        }
 
        public function testChecandoSeDeleteExcluiUmUsuario(){

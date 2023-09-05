@@ -93,4 +93,33 @@ class UsuarioTest extends TestCase
             'telefone' => '9787877'
         ]);
     }
+
+    public function testChecnandoSeFindEncontraUmUsuario(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+        
+        $usuarioRepository->expects($this->once())
+            ->method('find')
+            ->willReturn([
+                'nome' => 'TesteNome',
+                'sobrenome' => 'TesteSobrenome',
+                'email' => 'testeemail@example.com',
+                'telefone' => '9787877',
+                'created_at' => '2023-09-01T21:20:26.000000Z',
+                'updated_at' => '2023-10-01T21:20:26.000000Z',
+                'id' => 1
+            ]);
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+       
+        $user = $usuarioService->find(1);
+        $this->assertEquals('TesteNome', $user['nome']);
+        $this->assertEquals('TesteSobrenome', $user['sobrenome']);
+        $this->assertEquals('testeemail@example.com', $user['email']);
+        $this->assertEquals('9787877', $user['telefone']);
+        $this->assertEquals(1, $user['id']);
+        $this->assertEquals('2023-09-01T21:20:26.000000Z', $user['created_at']);
+        $this->assertEquals('2023-10-01T21:20:26.000000Z', $user['updated_at']);
+    }
 }
