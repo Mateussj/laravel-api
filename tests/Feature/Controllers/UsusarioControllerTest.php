@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Factories\Factory;
 class UsusarioControllerTest extends TestCase
 {
     use RefreshDatabase;
@@ -85,7 +84,7 @@ class UsusarioControllerTest extends TestCase
               $response = $this->withHeaders([
                      'Authorization' => 'Bearer ' . $this->token,
                      ])->get("/api/users/10000");
-              
+             
               $response->assertStatus(404);
               $response->assertJson(['Message' => 'Usuário não encontrado']);
        }
