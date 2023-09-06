@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Repositories\Usuarios\UsuarioRepository;
 use App\Services\Usuario\UsuarioService;
 use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -121,5 +122,37 @@ class UsuarioTest extends TestCase
         $this->assertEquals(1, $user['id']);
         $this->assertEquals('2023-09-01T21:20:26.000000Z', $user['created_at']);
         $this->assertEquals('2023-10-01T21:20:26.000000Z', $user['updated_at']);
+    }
+
+    public function testChecnandoSeFindRetornaNullCorretamente(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+        
+        $usuarioRepository->expects($this->once())
+            ->method('find')
+            ->willReturn(null);
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+       
+        $user = $usuarioService->find(1);
+        $this->assertEquals($user, null);
+    }
+
+    public function testChecnandoSeFindAllRetornaDadosPaginadosCorretamente(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+        
+        $paginatorMock = \Mockery::mock(LengthAwarePaginator::class);
+        
+        $usuarioRepository->expects($this->once())
+            ->method('findAll')
+            ->willReturn($paginatorMock);
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+       
+        $user = $usuarioService->findAll(1);
+        $this->assertInstanceOf(LengthAwarePaginator::class, $user);
     }
 }
