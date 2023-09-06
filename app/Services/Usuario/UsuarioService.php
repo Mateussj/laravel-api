@@ -63,9 +63,8 @@ class UsuarioService {
 
      public function delete($userId){
           try {
-               $user = $this->usuarioRepository->find($userId);
+               $user = $this->usuarioRepository->delete($userId);
                if($user) {
-                   $user->delete();
                    return true;
                }
                return false;
