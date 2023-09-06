@@ -46,7 +46,7 @@ class UsuarioService {
 
      public function findAll(){
           try {
-               return  User::paginate(10);
+               return $this->usuarioRepository->findAll();
            } catch (Exception $e) {
                throw new Exception('Não foi possivel encontrar os usuários.');
            }
