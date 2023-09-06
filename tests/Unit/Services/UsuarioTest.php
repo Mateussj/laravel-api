@@ -186,5 +186,35 @@ class UsuarioTest extends TestCase
         $this->assertEquals(false, $user);
         $this->assertEquals('boolean', gettype($user));
     }
+
+    public function testChecnandoSeDeleteRetornaCorretamente(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+        
+        $usuarioRepository->expects($this->once())
+            ->method('delete')
+            ->willReturn(true);
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+
+        $user = $usuarioService->delete(1);
+        $this->assertEquals(true, $user);
+        $this->assertEquals('boolean', gettype($user));
+
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $usuarioRepository->expects($this->once())
+        ->method('delete')
+        ->willReturn(false);
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+
+        $user = $usuarioService->delete(1);
+        $this->assertEquals(false, $user);
+        $this->assertEquals('boolean', gettype($user));
+    }
     
 }
