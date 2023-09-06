@@ -155,4 +155,36 @@ class UsuarioTest extends TestCase
         $user = $usuarioService->findAll(1);
         $this->assertInstanceOf(LengthAwarePaginator::class, $user);
     }
+
+     public function testChecnandoSeUpdateRetornaCorretamente(){
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+        
+        $usuarioRepository->expects($this->once())
+            ->method('update')
+            ->willReturn(true);
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+        $usuario = new User();
+
+        $user = $usuarioService->update($usuario, []);
+        $this->assertEquals(true, $user);
+        $this->assertEquals('boolean', gettype($user));
+
+        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
+        ->disableOriginalConstructor()
+        ->getMock();
+
+        $usuarioRepository->expects($this->once())
+        ->method('update')
+        ->willReturn(false);
+
+        $usuarioService = new UsuarioService($usuarioRepository);
+
+        $user = $usuarioService->update($usuario, []);
+        $this->assertEquals(false, $user);
+        $this->assertEquals('boolean', gettype($user));
+    }
+    
 }
