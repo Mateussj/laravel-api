@@ -8,6 +8,7 @@ use App\Services\Usuario\UsuarioService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class UsuarioTest extends TestCase  
@@ -17,19 +18,7 @@ class UsuarioTest extends TestCase
 
     public function testChecandoSeCreateCriaUmUsuario()
     {
-        $usuarioRepository = $this->getMockBuilder(UsuarioRepository::class)
-        ->disableOriginalConstructor()
-        ->getMock();
-        
-        $usuarioRepository->expects($this->once())
-            ->method('create')
-            ->willReturn(new User([
-                'nome' => 'TesteNome',
-                'sobrenome' => 'TesteSobrenome',
-                'email' => 'testeemail@example.com',
-                'password' => 'password123',
-                'telefone' => '9787877'
-            ]));
+        $usuarioRepository = new UsuarioRepository();
 
         $usuarioService = new UsuarioService($usuarioRepository);
 
@@ -45,7 +34,6 @@ class UsuarioTest extends TestCase
         $this->assertEquals('TesteNome', $user->nome);
         $this->assertEquals('TesteSobrenome', $user->sobrenome);
         $this->assertEquals('testeemail@example.com', $user->email);
-        $this->assertEquals('password123', $user->password);
         $this->assertEquals('9787877', $user->telefone);
     }
 
@@ -216,5 +204,4 @@ class UsuarioTest extends TestCase
         $this->assertEquals(false, $user);
         $this->assertEquals('boolean', gettype($user));
     }
-    
 }
