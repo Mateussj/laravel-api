@@ -13,12 +13,12 @@ class PostsRepository implements PostsRepositoryInterface {
 
     public function find($id)
     {
-        return Posts::find($id);
+        return Posts::with('user')->find($id);
     }
 
     public function findAll($perPage = 10)
     {
-        return Posts::paginate($perPage);
+        return Posts::with('user')->paginate($perPage);
     }
 
     public function update($post, array $data)
