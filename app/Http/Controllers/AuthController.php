@@ -19,7 +19,7 @@ class AuthController extends Controller
             $user->api_token = hash('sha256', $token);
             $user->save();
 
-            return response()->json(['token' => $token]);
+            return response()->json(['token' => $token, 'user' => $user]);
         } else {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
